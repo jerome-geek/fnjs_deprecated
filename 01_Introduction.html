@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Introduction Of Functional Programming</title>
+  </head>
+  <body>
+    <script>
+      /* 순수 함수 */
+      function add(a, b) {
+        return a + b;
+      }
+      console.log(add(10, 5));
+      console.log(add(10, 5));
+      console.log(add(10, 5));
+      console.log(add(10, 5));
+      console.log(add(10, 5));
+      console.log(add(10, 5));
+
+      var c = 10;
+      function add2(a, b) {
+        return a + b + c;
+      }
+      console.log(add2(10, 2)); // 22
+      console.log(add2(10, 3));
+      console.log(add2(10, 4));
+      // 순수함수는 평가시점이 중요하지 않다
+      c = 20;
+      console.log(add2(10, 2)); // 32
+      console.log(add2(10, 3));
+      console.log(add2(10, 4));
+
+      var c = 20;
+      /*
+       * 리턴 값외에 다른 방식으로 직접 외부의 상태에 관여하므로
+       * 부수효과가 생긴다 -> 순수함수가 아니다
+       */
+      function add3(a, b) {
+        c = b;
+        return a + b;
+      }
+      console.log('c: ', c);
+      console.log(add3(20, 30));
+      console.log('c: ', c);
+
+      var obj1 = { val: 10 };
+      function add4(obj, b) {
+        obj.val += b;
+      }
+      console.log(obj1.val);
+      add4(obj1, 20);
+      console.log(obj1.val);
+
+      var obj1 = { val: 10 };
+      function add5(obj, b) {
+        return Object.assign({}, obj1);
+        // return { val: obj.val + b };
+      }
+      console.log(obj1.val);
+      var obj2 = add5(obj1, 20);
+      console.log(obj1.val);
+      console.log(obj2.val);
+    </script>
+  </body>
+</html>

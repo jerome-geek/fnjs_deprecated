@@ -123,6 +123,18 @@
           }
         )
       );
+
+      /* 데이터(객체) 기준 */
+      duck.moveLeft();
+      duck.moveRight();
+      dog.moveLeft();
+      dog.moveRight();
+
+      /* 함수 기준 */
+      moveLeft(dog);
+      moveRight(duck);
+      moveLeft({ x: 5, y: 2 });
+      moveRight(dog);
     </script>
   </body>
 </html>

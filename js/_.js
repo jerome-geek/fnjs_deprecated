@@ -1,3 +1,27 @@
+function _curry(fn) {
+  return function(a, b) {
+    return arguments.length == 2
+      ? fn(a, b)
+      : function(b) {
+          return fn(a, b);
+        };
+  };
+}
+
+function _curryr(fn) {
+  return function(a, b) {
+    return arguments.length == 2
+      ? fn(a, b)
+      : function(b) {
+          return fn(b, a);
+        };
+  };
+}
+
+var _get = _curryr(function _get(obj, key) {
+  return obj == null ? undefined : obj[key];
+});
+
 function _filter(list, predi) {
   var new_list = [];
   _each(list, function(val) {

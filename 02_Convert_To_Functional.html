@@ -53,23 +53,6 @@
       console.log(ages);
 
       // 2. _filter, _map으로 리팩토링
-      function _filter(list, predi) {
-        var new_list = [];
-        for (var i = 0; i < list.length; i++) {
-          if (predi(list[i])) {
-            new_list.push(list[i]);
-          }
-        }
-        return new_list;
-      }
-
-      function _map(list, mapper) {
-        var new_list = [];
-        for (var i = 0; i < list.length; i++) {
-          new_list.push(mapper(list[i]));
-        }
-        return new_list;
-      }
 
       var over_30 = _filter(users, function(user) {
         return user.age >= 30;
@@ -129,6 +112,17 @@
       );
 
       // 3. each 만들기
+      // 3-1. _each로 _map, _filter 중복 제거
+      // 3-2. 외부 다형성
+      // 3-2-1. array_like, arguments, document.querySelectorAll
+      // 3-3. 내부 다형성
+      // 3-3-1. predicate, iteratee, mapper
+
+      // 4. Currying
+      // 4-1. _curry. _curryr
+      // 4-2. _get 만들어 좀 더 간단하게 하기
+
+      // 5. _reduce 만들기
     </script>
   </body>
 </html>

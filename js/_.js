@@ -102,3 +102,15 @@ function _identity(val) {
 function _pluck(data, key) {
   return _map(data, _get(key));
 }
+
+function _negate(fn) {
+  return function(val) {
+    return !fn(val);
+  };
+}
+
+function _reject(data, predi) {
+  return _filter(data, _negate(predi));
+}
+
+var _compact = _filter(_identity);

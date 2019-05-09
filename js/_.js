@@ -109,9 +109,9 @@ function _negate(fn) {
   };
 }
 
-function _reject(data, predi) {
+var _reject = _curryr(function(data, predi) {
   return _filter(data, _negate(predi));
-}
+});
 
 var _compact = _filter(_identity);
 
@@ -138,3 +138,30 @@ function _some(data, predi) {
 function _every(data, predi) {
   return _find_index(data, _negate(predi || _identity)) == -1;
 }
+
+function _min(data) {
+  return _reduce(data, function(a, b) {
+    return a < b ? a : b;
+  });
+}
+
+function _max(data) {
+  return _reduce(data, function(a, b) {
+    return a > b ? a : b;
+  });
+}
+
+function _min_by(data, iter) {
+  return _reduce(data, function(a, b) {
+    return iter(a) < iter(b) ? a : b;
+  });
+}
+
+function _max_by(data, iter) {
+  return _reduce(data, function(a, b) {
+    return iter(a) > iter(b) ? a : b;
+  });
+}
+
+var _min_by = _curryr(_min_by),
+  _max_by = _curryr(_max_by);

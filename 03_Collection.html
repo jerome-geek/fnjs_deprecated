@@ -151,6 +151,42 @@
 
       // 4. 접기 - reduce
       // 4-1. min, max, min_by, max_by
+      console.log(_min([1, 2, 4, 10, -4]));
+      console.log(_max([1, 2, 4, 10, -4]));
+
+      console.log(_min_by([1, 2, 4, 10, 5, -4], Math.abs));
+      console.log(_max_by([1, 2, 4, 10, 5, -4], Math.abs));
+
+      console.log(
+        _max_by(users, function(user) {
+          return user.age;
+        })
+      );
+
+      _go(
+        users,
+        _filter(user => user.age >= 30),
+        _min_by(_get('age')),
+        _get('age'),
+        console.log
+      );
+
+      _go(
+        users,
+        _filter(user => user.age >= 30),
+        _map(_get('age')),
+        _min,
+        console.log('a', a)
+      );
+
+      _go(
+        users,
+        _reject(user => user.age >= 30),
+        _max_by(_get('age')),
+        _get('name'),
+        console.log
+      );
+
       // 4-2. group_by, push
       // 4-3. count_by, inc
     </script>

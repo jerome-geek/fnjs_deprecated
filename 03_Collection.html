@@ -209,21 +209,6 @@
       //   ...
       // };
 
-      function _push(obj, key, val) {
-        (obj[key] = obj[key] || []).push(val);
-        return obj;
-      }
-
-      var _group_by = _curryr(function(data, iter) {
-        return _reduce(
-          data,
-          function(grouped, val) {
-            return _push(grouped, iter(val), val);
-          },
-          {}
-        );
-      });
-
       _go(users, _group_by(_get('age')), console.log);
 
       _go(
@@ -233,10 +218,6 @@
         }),
         console.log
       );
-
-      var _head = function(list) {
-        return list[0];
-      };
 
       _go(
         users,
@@ -249,6 +230,35 @@
       _go(users, _group_by(_pipe(_get('name'), _head)), console.log);
 
       // 4-3. count_by, inc
+      console.log(
+        _count_by(users, function(user) {
+          return user.age - (user.age % 10);
+        })
+      );
+
+      _go(
+        users,
+        _count_by(function(user) {
+          return user.name[0];
+        }),
+        console.log
+      );
+
+      console.log(_pairs(users[0]));
+
+      console.clear();
+
+      var f1 = _pipe(
+        _count_by(function(user) {
+          return user.age - (user.age % 10);
+        }),
+        _map((count, key) => `<li>${key}대는 ${count}명 입니다.</li>`),
+        list => '<ul>' + list.join('') + '</ul>',
+        document.write.bind(document)
+      );
+
+      _go(users, _filter(user => user.age < 20), f1);
+      _go(users, _reject(user => user.age < 20), f1);
     </script>
   </body>
 </html>

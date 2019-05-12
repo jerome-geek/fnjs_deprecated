@@ -32,8 +32,8 @@ function _filter(list, predi) {
 
 function _map(list, mapper) {
   var new_list = [];
-  _each(list, function(val) {
-    new_list.push(mapper(val));
+  _each(list, function(val, key) {
+    new_list.push(mapper(val, key));
   });
   return new_list;
 }
@@ -51,13 +51,15 @@ var _length = _get('length');
 function _each(list, iter) {
   var keys = _keys(list);
   for (var i = 0, len = keys.length; i < len; i++) {
-    iter(list[keys[i]]);
+    iter(list[keys[i]], keys[i]);
   }
   return list;
 }
 
 var _map = _curryr(_map),
   _filter = _curryr(_filter);
+
+var _pairs = _map((val, key) => [key, val]);
 
 var slice = Array.prototype.slice;
 function _rest(list, num) {
@@ -165,3 +167,37 @@ function _max_by(data, iter) {
 
 var _min_by = _curryr(_min_by),
   _max_by = _curryr(_max_by);
+
+function _push(obj, key, val) {
+  (obj[key] = obj[key] || []).push(val);
+  return obj;
+}
+
+var _group_by = _curryr(function(data, iter) {
+  return _reduce(
+    data,
+    function(grouped, val) {
+      return _push(grouped, iter(val), val);
+    },
+    {}
+  );
+});
+
+var _inc = function(count, key) {
+  count[key] ? count[key]++ : (count[key] = 1);
+  return count;
+};
+
+var _count_by = _curryr(function(data, iter) {
+  return _reduce(
+    data,
+    function(count, val) {
+      return _inc(count, iter(val));
+    },
+    {}
+  );
+});
+
+var _head = function(list) {
+  return list[0];
+};
